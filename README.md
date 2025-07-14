@@ -87,11 +87,39 @@ axmldec com.example.app.apk | xmllint --xpath 'string(/manifest/@package)' -
     cmake -DCMAKE_BUILD_TYPE=Release . && make
     ```
 
-## 5 Developer
+
+## 5 Building and Running with Docker
+
+You can also build and run `axmldec` using Docker. This avoids having to install dependencies directly on your host machine.
+
+1.  **Build the Docker image:**
+    Navigate to the directory containing the `Dockerfile` and run the following command:
+
+    ```sh
+    docker build -t axmldec .
+    ```
+
+2.  **Run the `axmldec` container:**
+    Use `docker run` to execute the tool. You must mount a local directory containing your APK or `AndroidManifest.xml` file to the `/data` directory inside the container.
+
+      * **To decode an `AndroidManifest.xml` file:**
+        Replace `/path/to/your/files` with the absolute path to the directory containing your file.
+
+        ```sh
+        docker run --rm -v /path/to/your/files:/data axmldec -o /data/output.xml /data/AndroidManifest.xml
+        ```
+
+      * **To decode an APK file:**
+
+        ```sh
+        docker run --rm -v /path/to/your/files:/data axmldec -o /data/output.xml /data/your-app.apk
+        ```
+
+## 6 Developer
 
 - [Yutaka Tsutano] at University of Nebraska-Lincoln.
 
-## 6 License
+## 7 License
 
 - See [LICENSE.md](LICENSE.md) for license rights and limitations (ISC).
 
